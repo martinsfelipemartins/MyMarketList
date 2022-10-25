@@ -8,5 +8,7 @@ interface ContentDataSource {
 
     suspend fun remove(noteContentDTO: NoteContentDTO)
 
-    suspend fun
+    suspend fun getAllContentNotes(): List<NoteContentDTO>
+
+    suspend fun getContentNote(id: Long): NoteContentDTO
 }
