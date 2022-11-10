@@ -1,6 +1,9 @@
 package com.example.core.domain.usecase.content
 
-class DeleteContent {
+import com.example.core.data.repository.ContentRepository
+import com.example.core.domain.model.NoteContentDTO
 
-    suspend fun invoke()
+class DeleteContent(private val repository: ContentRepository) {
+
+    suspend fun invoke(contentDTO: NoteContentDTO) = repository.removeContent(contentDTO)
 }
