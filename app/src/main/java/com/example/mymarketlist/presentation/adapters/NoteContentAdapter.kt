@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mymarketlist.databinding.ItemContentBinding
 import com.example.mymarketlist.presentation.vo.NoteContentVO
 
-class NoteContentAdapter(private val click: (NoteContentVO) -> Unit) :
+class NoteContentAdapter :
     ListAdapter<NoteContentVO, NoteContentAdapter.NoteContentViewHolder>(DIFF_LIST) {
 
 
@@ -26,7 +26,7 @@ class NoteContentAdapter(private val click: (NoteContentVO) -> Unit) :
 
         fun bind(noteContentVO: NoteContentVO) {
             itemBinding.run {
-                checkboxContent.text = noteContentVO.content
+
                 checkboxContent.isChecked = noteContentVO.isChecked
             }
         }
