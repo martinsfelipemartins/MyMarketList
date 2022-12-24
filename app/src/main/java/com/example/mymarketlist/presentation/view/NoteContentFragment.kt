@@ -9,18 +9,20 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymarketlist.databinding.FragmentNoteContentBinding
 import com.example.mymarketlist.presentation.adapters.NoteContentAdapter
+import com.example.mymarketlist.presentation.adapters.UserTypedListener
 import com.example.mymarketlist.presentation.vo.NoteContentVO
 
-class NoteContentFragment : Fragment(){
+class NoteContentFragment : Fragment(), UserTypedListener{
 
     companion object {
         fun newInstance() = NoteContentFragment()
+        lateinit var userTypedListener: UserTypedListener
     }
 
     private var contentList = mutableListOf<NoteContentVO>()
 
     private val contentAdapter by lazy {
-        NoteContentAdapter().apply {
+        NoteContentAdapter(this).apply {
             submitList(contentList)
         }
     }
@@ -59,5 +61,13 @@ class NoteContentFragment : Fragment(){
             contentList.add(NoteContentVO("", "", false))
             setupAdapter()
         }
+    }
+
+    private fun returnTezxt(tect: String):String{
+         return tect
+    }
+
+    override fun editTextListener(typedText: String) {
+        returnTezxt(typedText)
     }
 }

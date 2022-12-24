@@ -1,5 +1,7 @@
 package com.example.mymarketlist.presentation.adapters
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mymarketlist.databinding.ItemContentBinding
 import com.example.mymarketlist.presentation.vo.NoteContentVO
 
-class NoteContentAdapter :
+class NoteContentAdapter(private val userTypedListener: UserTypedListener) :
     ListAdapter<NoteContentVO, NoteContentAdapter.NoteContentViewHolder>(DIFF_LIST) {
-
 
     class NoteContentViewHolder(private val itemBinding: ItemContentBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
@@ -24,11 +25,19 @@ class NoteContentAdapter :
             }
         }
 
-        fun bind(noteContentVO: NoteContentVO) {
-            itemBinding.run {
+        fun bind(noteContentVO: NoteContentVO, userTypedListener: UserTypedListener) {
+            itemBinding.contentText.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-                checkboxContent.isChecked = noteContentVO.isChecked
-            }
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                override fun afterTextChanged(p0: Editable?) {
+                    userTypedListener.editTextListener(p0.toString())
+                }
+            })
+
+            itemBinding.checkboxContent.isChecked = noteContentVO.isChecked
+            userTypedListener.editTextListener(itemBinding.contentText.text.toString())
         }
     }
 
@@ -37,7 +46,7 @@ class NoteContentAdapter :
     }
 
     override fun onBindViewHolder(holder: NoteContentViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), userTypedListener)
     }
 
     companion object {
