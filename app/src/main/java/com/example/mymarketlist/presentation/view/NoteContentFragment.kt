@@ -12,11 +12,10 @@ import com.example.mymarketlist.presentation.adapters.NoteContentAdapter
 import com.example.mymarketlist.presentation.adapters.UserTypedListener
 import com.example.mymarketlist.presentation.vo.NoteContentVO
 
-class NoteContentFragment : Fragment(), UserTypedListener{
+class NoteContentFragment : Fragment(), UserTypedListener {
 
     companion object {
         fun newInstance() = NoteContentFragment()
-        lateinit var userTypedListener: UserTypedListener
     }
 
     private var contentList = mutableListOf<NoteContentVO>()
@@ -45,7 +44,6 @@ class NoteContentFragment : Fragment(), UserTypedListener{
         setupFloatingButton()
     }
 
-
     private fun setupAdapter() {
         with(binding.recyclerViewContent) {
             adapter = contentAdapter
@@ -54,20 +52,24 @@ class NoteContentFragment : Fragment(), UserTypedListener{
         }
     }
 
+    private fun setupFloatingButton() {
 
-
-    private fun setupFloatingButton(){
         binding.floatingActionButton.setOnClickListener {
-            contentList.add(NoteContentVO("", "", false))
+
+            contentList.forEach {
+
+            }
+                    contentList.add(NoteContentVO(content = "", isChecked = false))
+
             setupAdapter()
         }
     }
 
-    private fun returnTezxt(tect: String):String{
-         return tect
+    private fun getUserInput(input: String): String {
+        return input
     }
 
     override fun editTextListener(typedText: String) {
-        returnTezxt(typedText)
+        getUserInput(typedText)
     }
 }

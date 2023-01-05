@@ -1,7 +1,7 @@
 package com.example.core.domain.model
 
 data class NoteContentDTO(
-    val id: String,
+    val id: Long,
     val content: String,
     val isChecked: Boolean
 )

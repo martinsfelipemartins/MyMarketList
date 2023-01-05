@@ -5,10 +5,12 @@ import com.example.mymarketlist.presentation.vo.NoteContentVO
 
 class NoteContentConverter {
 
-    fun mapper (contentDTO: NoteContentDTO) =
-        NoteContentVO(
-            contentId = contentDTO.id,
-            content = contentDTO.content,
-            isChecked = contentDTO.isChecked
-        )
+    fun mapper(contentVO: NoteContentVO) =
+        contentVO.content?.let {
+            NoteContentDTO(
+                id = contentVO.contentId,
+                content = it,
+                isChecked = contentVO.isChecked
+            )
+        }
 }
